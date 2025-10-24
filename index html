@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Interactive Photo Gallery</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #0f0f0f;
+      color: #f2f2f2;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin: 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #00c4ff;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .gallery img:hover,
+    .gallery img:focus {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00c4ff80;
+    }
+
+    .gallery img:blur,
+    .gallery img:focus:not(:hover) {
+      box-shadow: none;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body onload="initGallery()">
+  <h1>Dark Interactive Photo Gallery</h1>
+
+  <div class="gallery">
+    <img src="https://picsum.photos/id/1015/400/300" alt="Mountain landscape">
+    <img src="https://picsum.photos/id/1025/400/300" alt="Dog looking up">
+    <img src="https://picsum.photos/id/1041/400/300" alt="Green forest">
+    <img src="https://picsum.photos/id/1052/400/300" alt="City skyline at night">
+    <img src="https://picsum.photos/id/1069/400/300" alt="Calm beach">
+    <img src="https://picsum.photos/id/1076/400/300" alt="Desert dunes">
+  </div>
+
+  <footer>Created by VhLong — 2025</footer>
+
+  <script>
+    function initGallery() {
+      console.log("Gallery loaded successfully.");
+      addTabFocus();
+      addEventListeners();
+    }
+
+    function addTabFocus() {
+      console.log("Adding tabindex attributes...");
+      const images = document.querySelectorAll('.gallery img');
+      for (let i = 0; i < images.length; i++) {
+        images[i].setAttribute('tabindex', i + 1);
+      }
+    }
+
+    function addEventListeners() {
+      const images = document.querySelectorAll('.gallery img');
+
+      images.forEach(img => {
+        img.addEventListener('mouseover', () => {
+          console.log("Mouse entered:", img.alt);
+          img.style.transform = 'scale(1.08)';
+          img.style.boxShadow = '0 0 25px #00c4ffaa';
+        });
+
+        img.addEventListener('mouseleave', () => {
+          console.log("Mouse left:", img.alt);
+          img.style.transform = 'scale(1)';
+          img.style.boxShadow = 'none';
+        });
+
+        img.addEventListener('focus', () => {
+          console.log("Image focused:", img.alt);
+          img.style.boxShadow = '0 0 25px #00c4ffaa';
+        });
+
+        img.addEventListener('blur', () => {
+          console.log("Image blurred:", img.alt);
+          img.style.boxShadow = 'none';
+        });
+      });
+    }
+  </script>
+</body>
+</html>
